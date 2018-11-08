@@ -1,0 +1,22 @@
+version: "3"
+
+networks:
+  dockercomposeefk_default:
+    external: true
+
+services:
+
+  web:
+    image: httpd:2.4.37-alpine
+    ports:
+      - "80:80"
+    networks:
+      dockercomposeefk_default:
+    logging:
+      driver: "fluentd"
+      options:
+        fluentd-address: localhost:24224
+        tag: httpd.access
+
+# https://docs.docker.com/config/containers/logging/configure/#supported-logging-drivers
+# https://docs.fluentd.org/v0.12/articles/docker-logging-efk-compose

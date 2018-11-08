@@ -1,0 +1,59 @@
+version: "3"
+
+volumes:
+  elasticsearch_data:
+
+services:
+
+# https://hub.docker.com/r/fluent/fluentd/
+  fluentd:
+    build: ./fluentd/.
+    ports:
+      - "24224:24224"
+      - "24224:24224/udp"
+      - "9292:9292"
+    expose:
+      - "9880"
+    volumes:
+      - ./volumes/fluentd/etc:/fluentd/etc
+    healthcheck:
+      test: nc -z localhost 24224
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+# https://www.elastic.co/guide/en/elasticsearch/reference/6.4/docker.html
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:6.4.2
+    expose:
+      - "9200"
+      - "9300"
+    environment:
+      - cluster.name=efk-cluster
+      - discovery.type=single-node
+      - "ES_JAVA_OPTS=-Xms256m -Xmx256m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - elasticsearch_data:/usr/share/elasticsearch/data
+    healthcheck:
+      test: curl -f http://localhost:9200 || exit 1
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+# https://www.elastic.co/guide/en/kibana/6.4/docker.html
+  kibana:
+    image: docker.elastic.co/kibana/kibana:6.4.2
+    ports:
+      - "5601:5601"
+    environment:
+      SERVER_NAME: kibana
+      ELASTICSEARCH_URL: http://elasticsearch:9200
+    healthcheck:
+      test: curl -f http://localhost:5601 || exit 1
+      interval: 30s
+      timeout: 10s
+      retries: 5
