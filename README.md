@@ -19,6 +19,8 @@ A basic docker-compose.yml file that will setup Elasticsearch, Fluentd & Kibana.
 5. Stop test HTTPD: `make down_example`
 6. Stop EFK: `make down`
 
+> Fluentd configurations: https://docs.fluentd.org/v0.12/articles/in_forward
+
 ## Troubleshooting: Elasticsearch ERROR messages
 
 * ERROR: max file descriptors [4096] for elasticsearch process is too low, increase to at least [65536]
