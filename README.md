@@ -15,8 +15,9 @@ A basic docker-compose.yml file that will setup Elasticsearch, Fluentd & Kibana.
 1. Start EFK: `make up`
 2. Start test HTTPD: `make up_example`
 3. Generate HTTPD logs:`make test`
-4. Stop test HTTPD: `make down_example`
-5. Stop EFK: `make down`
+4. Check Kibana: http://localhost:5601
+5. Stop test HTTPD: `make down_example`
+6. Stop EFK: `make down`
 
 ## Troubleshooting: Elasticsearch ERROR messages
 
