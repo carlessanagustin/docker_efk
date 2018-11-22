@@ -25,3 +25,6 @@ test:
 
 enter_fluentd:
 	docker exec -it dockerefk_fluentd_1 bash
+
+teardown: down_example down
+	-docker volume prune -f

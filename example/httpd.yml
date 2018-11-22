@@ -1,7 +1,7 @@
 version: "3"
 
 networks:
-  dockercomposeefk_default:
+  dockerefk_default:
     external: true
 
 services:
@@ -11,7 +11,7 @@ services:
     ports:
       - "80:80"
     networks:
-      dockercomposeefk_default:
+      dockerefk_default:
     logging:
       driver: "fluentd"
       options:
