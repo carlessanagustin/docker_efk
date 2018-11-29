@@ -1,3 +1,5 @@
+include ./Makefiles/gluster.mk
+
 up:
 	docker-compose up -d
 down:
