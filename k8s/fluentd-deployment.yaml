@@ -4,7 +4,6 @@ metadata:
   annotations:
     kompose.cmd: kompose convert -f docker-compose.yml
     kompose.version: 1.16.0 (0c01309)
-  creationTimestamp: null
   labels:
     io.kompose.service: fluentd
   name: fluentd
@@ -30,16 +29,20 @@ spec:
         name: fluentd
         ports:
         - containerPort: 24224
+          protocol: TCP
         - containerPort: 24224
           protocol: UDP
         - containerPort: 9292
+          protocol: TCP
         resources: {}
         volumeMounts:
-        - mountPath: /fluentd/etc
-          name: fluentd-claim0
+        - name: fluentd-conf
+          mountPath: /fluentd/etc
+          subPath: etc
+          name: fluentd-claim
+          readOnly: true
       restartPolicy: Always
       volumes:
-      - name: fluentd-claim0
+      - name: fluentd-claim
         persistentVolumeClaim:
-          claimName: fluentd-claim0
-status: {}
+          claimName: fluentd-claim
