@@ -16,6 +16,11 @@ create:
 	@# kubectl create -f ingress-chronograf.yaml
 
 delete:
+	-kubectl create -f elasticsearch-deployment.yaml
+	-kubectl create -f elasticsearch-service.yaml
+	-kubectl create -f gluster-pvc.yaml
+	-kubectl create -f gluster-pv.yaml
+	-kubectl create -f gluster-ep.yaml
 	-kubectl create -f efk-ns.yaml
 
 get:
