@@ -1,0 +1,25 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  creationTimestamp: 2018-11-29T10:42:17Z
+  labels:
+    addonmanager.kubernetes.io/mode: Reconcile
+    app: fluentd-elasticsearch
+    chart: fluentd-elasticsearch-1.3.0
+    heritage: Tiller
+    kubernetes.io/cluster-service: "true"
+    release: fluentd
+  name: fluentd-fluentd-elasticsearch
+  resourceVersion: "426349"
+  selfLink: /apis/rbac.authorization.k8s.io/v1/clusterroles/fluentd-fluentd-elasticsearch
+  uid: 7123f20b-f3c3-11e8-9dbc-42010a840002
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - namespaces
+  - pods
+  verbs:
+  - get
+  - watch
+  - list
